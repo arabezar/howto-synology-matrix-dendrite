@@ -85,4 +85,4 @@ docker exec -it matrix-dendrite /usr/bin/create-account \
 
 ## Вклад
 
-- Предложения и замечания категорически приветствуются [здесь](https://github.com/arabezar/portainer/discussions)
+- Предложения и замечания категорически приветствуются [здесь](https://github.com/arabezar/howto-synology-matrix/discussions)
