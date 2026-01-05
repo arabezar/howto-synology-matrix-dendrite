@@ -13,6 +13,7 @@
 
 - Реализованная архитектура проверялась на белом статическом IP-адресе провайдера, как она будет вести себя на динамическом адресе - не знаю, проверяйте.
 - Архитектура подразумевает использование малыми группами людей, например, дома, и не рассчитана на большие нагрузки, поэтому использована встроенная СУБД SQLite, которую при желании несложно заменить на PostgreSQL в контейнере.
+- Клиент `Element X` пока [не поддерживается](https://github.com/element-hq/dendrite#dendrite) из-за отсутствия в `Dendrite` поддержки [MSC4186 (Simplified Sliding Sync)](https://github.com/matrix-org/matrix-spec-proposals/pull/4186) и [MSC3861 (Next-gen auth OIDC)](https://github.com/matrix-org/matrix-spec-proposals/pull/3861)
 
 ## Подготовка папок и ключей
 
