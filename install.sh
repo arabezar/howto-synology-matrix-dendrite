@@ -22,18 +22,6 @@ read -p "Задайте папку проекта [${MATRIX_PRJ_NAME}] (Enter - 
 mkdir -p "${DOCKER_PATH}/${MATRIX_PRJ_NAME}/db"
 cd "${DOCKER_PATH}/${MATRIX_PRJ_NAME}"
 
-# проверка/создание папки проекта
-ENV_FILE="${DOCKER_PATH}/${MATRIX_PRJ_NAME}/.env"
-[ -f "$ENV_FILE" ] && . "$ENV_FILE"
-
-# скачивание конфигурационных файлов
-echo "Загрузка конфигурационных файлов..."
-curl -sLO "${TEMPLATES_URL_BASE}/compose.yaml"
-curl -sLO "${TEMPLATES_URL_BASE}/dendrite.yaml"
-curl -sLO "${TEMPLATES_URL_BASE}/livekit.yaml"
-curl -sLO "${TEMPLATES_URL_BASE}/proxy.conf.template"
-chmod ugo-x *.yaml proxy.conf.template
-
 # Функция проверки наличия и установки значения параметров конфигурации
 check_config_param() {
     # параметры функции
@@ -75,7 +63,11 @@ check_config_param() {
     fi
 }
 
-# заполнение файла .env
+# Проверка/создание папки проекта
+ENV_FILE="${DOCKER_PATH}/${MATRIX_PRJ_NAME}/.env"
+[ -f "$ENV_FILE" ] && . "$ENV_FILE"
+
+# Заполнение файла .env
 echo "Сбор параметров для развёртывания..."
 check_config_param "Основной домен" "DOMAIN_BASE" "example.com"
 check_config_param "Домен Matrix" "DOMAIN_MATRIX" "matrix.${DOMAIN_BASE}"
@@ -85,11 +77,48 @@ check_config_param "Секретная фраза (токен)" "SECRET_TOKEN"
 
 echo "Настройка конфигураций..."
 chmod ugo-x "$ENV_FILE"
-envsubst < dendrite.yaml > dendrite.yaml
-envsubst < livekit.yaml > livekit.yaml
 
-echo "Генерация ключа подписи Matrix..."
-docker run --entrypoint="/usr/bin/generate-keys" -v $(pwd):/mnt matrixdotorg/dendrite-monolith:latest --private-key /mnt/matrix_key.pem
+# Функция для эмуляции envsubst
+envsubst_my() {
+  eval "echo \"$(cat $1 | sed 's/"/\\"/g')\""
+}
+
+# Скачивание конфигурационных файлов
+echo "Загрузка конфигурационных файлов..."
+if [ -f "compose.yaml" ]; then
+    echo "... compose.yaml найден, загрузка пропущена"
+else
+    curl -sLO "${TEMPLATES_URL_BASE}/compose.yaml"
+fi
+
+if [ -f "dendrite.yaml" ]; then
+    echo "... dendrite.yaml найден, загрузка пропущена"
+else
+    curl -sLO "${TEMPLATES_URL_BASE}/dendrite.yaml"
+    envsubst_my dendrite.yaml > dendrite.yaml
+fi
+
+if [ -f "livekit.yaml" ]; then
+    echo "... livekit.yaml найден, загрузка пропущена"
+else
+    curl -sLO "${TEMPLATES_URL_BASE}/livekit.yaml"
+    envsubst_my livekit.yaml > livekit.yaml
+fi
+
+if [ -f "proxy.conf.template" ]; then
+    echo "... proxy.conf.template найден, загрузка пропущена"
+else
+    curl -sLO "${TEMPLATES_URL_BASE}/proxy.conf.template"
+fi
+
+chmod ugo-x *.yaml proxy.conf.template
+
+if [ -f "matrix_key.pem" ]; then
+    echo "... ключ подписи Matrix найден, генерация пропущена"
+else
+    echo "Генерация ключа подписи Matrix..."
+    docker run --entrypoint="/usr/bin/generate-keys" -v $(pwd):/mnt matrixdotorg/dendrite-monolith:latest --private-key /mnt/matrix_key.pem
+fi
 
 read -p "Создайте в Container Manager проект matrix-dendrite, задайте путь /docker/${MATRIX_PRJ_NAME}, запустите проект и продолжайте здесь... задайте имя пользователя-администратора [admin] (Enter - подтвердить):" MATRIX_ADMIN
 [ -z "${MATRIX_ADMIN}" ] && MATRIX_ADMIN="admin"
