@@ -17,8 +17,6 @@ services:
   dendrite:
     image: matrixdotorg/dendrite-monolith:latest
     container_name: matrix-dendrite
-    ports:
-      - 8008:8008
     volumes:
       - ./dendrite.yaml:/etc/dendrite/dendrite.yaml:ro
       - ./matrix_key.pem:/etc/dendrite/matrix_key.pem:ro
@@ -40,8 +38,6 @@ services:
     image: livekit/livekit-server:latest
     container_name: matrix-livekit
     command: --config /etc/livekit.yaml
-    environment:
-      - LIVEKIT_NODE_IP=123.45.67.89 # Edit your external static IP address here
     ports:
       - 7880:7880/tcp # API
       - 7881:7881/tcp # Signal/TCP fallback
