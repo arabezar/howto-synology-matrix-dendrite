@@ -72,12 +72,33 @@ docker exec -it matrix-dendrite /usr/bin/create-account -config /etc/dendrite/de
 ```bash
 testmatrix exemple.com
 ```
-  <details>
-      <summary>инструмент укажет на проблемы с сервером</summary>
-      
-  ![Тестирование сервера Matrix](./images/testmatrix.png)
-  > Не обращайте внимания на крестики внизу: при включении MSC4140 в `Dendrite`, последний начинает безбожно глючить, - видео рвётся сразу после подключения; а второй крестик о регистрации не соответствует действительности, т.к. в конфигурации открытая регистрация запрещена.
-  </details>
+<details>
+<summary>инструмент укажет на проблемы с сервером</summary>
+
+```sh
+Testing server example.com
+  Federation url: https://matrix.example.com:443
+✔ Server well-known exists
+✔ Client well-known has proper CORS header
+  Client url: https://example.com
+  Adding livekit service URL: https://auth.example.com
+✔ Server version: Dendrite (0.15.2+e546df2)
+✔ Federation API endpoints seem to work fine
+✔ Client API endpoints seem to work fine
+  QR code login is disabled (MSC 4108)
+  Public room directory is enabled
+✔ MatrixRTC SFU configured
+  JWTauth healtz url: https://auth.example.com
+  jwt has no CORS header (that is OK)
+✔ JWTauth responds
+✔ jwt /sfu/get without auth returns (405). This is good!
+  jwt: no credentials passed, not trying authed requests
+𐄂 MatrixRTC configured but delayed events turned off (MSC4140). BAD!
+  No room summaries (MSC3266) (unstable) support
+𐄂 Direct open registration might not be forbidden!
+```
+> Не обращайте внимания на крестики внизу: при включении MSC4140 в `Dendrite`, последний начинает безбожно глючить, - видео рвётся сразу после подключения; а второй крестик о регистрации не соответствует действительности, т.к. в конфигурации открытая регистрация запрещена.
+</details>
 Можно протестировать и авторизацию с указанием пользователя и токена (который можно найти в UI клиента после регистрации пользователя; например, в Element Web - клик на пользователе > Все настройки > Помощь и о программе > Токен доступа)
 
 ```bash
