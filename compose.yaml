@@ -28,10 +28,10 @@ services:
     container_name: matrix-auth
     environment:
       - LIVEKIT_JWT_BIND=0.0.0.0:8080
-      - LIVEKIT_URL=https://livekit.example.com # Edit your LiveKit domain here
+      - LIVEKIT_URL=https://${DOMAIN_LIVEKIT}
       - LIVEKIT_KEY=devkey
-      - LIVEKIT_SECRET=Your_Secret_Token # Edit your registration secret phrase
-      - LIVEKIT_FULL_ACCESS_HOMESERVERS=example.com # Edit your Matrix domain here
+      - LIVEKIT_SECRET=${SECRET_TOKEN}
+      - LIVEKIT_FULL_ACCESS_HOMESERVERS=${DOMAIN_BASE}
     restart: unless-stopped
 
   livekit:
