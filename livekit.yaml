@@ -11,9 +11,9 @@ rtc:
 
 turn:
   enabled: true
-  domain: livekit.example.com # Edit your LiveKit domain here
+  domain: ${DOMAIN_LIVEKIT}
   udp_port: 3478
   external_tls: false 
 
 keys:
-  devkey: "Your_Secret_Token" # Edit your registration secret phrase
+  devkey: "${SECRET_TOKEN}"
