@@ -1,7 +1,7 @@
 version: 2
 
 global:
-  server_name: "matrix.example.com" # Edit your Matrix domain here
+  server_name: "example.com" # Edit your Matrix domain here
   private_key: "/etc/dendrite/matrix_key.pem"
   jetstream:
     storage_path: "/var/lib/dendrite/jetstream"
@@ -14,7 +14,6 @@ logging:
 
 client_api:
   registration_disabled: true
-  registration_shared_secret: "Your_Secret_Token" # Edit your registration secret phrase
   rate_limiting:
     enabled: true
 
