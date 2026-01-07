@@ -94,6 +94,7 @@ if [ -f "dendrite.yaml" ]; then
 else
     curl -sLO "${TEMPLATES_URL_BASE}/dendrite.yaml.tpl"
     envsubst_my dendrite.yaml.tpl > dendrite.yaml
+    rm dendrite.yaml.tpl
 fi
 
 if [ -f "livekit.yaml" ]; then
@@ -101,6 +102,7 @@ if [ -f "livekit.yaml" ]; then
 else
     curl -sLO "${TEMPLATES_URL_BASE}/livekit.yaml.tpl"
     envsubst_my livekit.yaml.tpl > livekit.yaml
+    rm livekit.yaml.tpl
 fi
 
 if [ -f "proxy.conf.template" ]; then
