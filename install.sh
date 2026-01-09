@@ -4,7 +4,7 @@ VERSION="0.0.1" # Версия скрипта
 
 DOCKER_PATH="/var/packages/ContainerManager/shares/docker"
 MATRIX_PRJ_NAME_DEFAULT="matrix-dendrite"
-TEMPLATES_URL_BASE="https://github.com/arabezar/howto-synology-matrix-dendrite/raw/refs/heads/main"
+TEMPLATES_URL_BASE="https://github.com/arabezar/matrix-dendrite-synology/raw/refs/heads/main"
 
 # Проверка наличия необходимых утилит и условий
 echo "Установка Matrix Dendrite + LiveKit in Docker v${VERSION}..."
