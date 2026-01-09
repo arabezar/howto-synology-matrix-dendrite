@@ -20,6 +20,7 @@
 Направьте на локальный IP Synology:
 - TCP: 80 (HTTP), 443 (HTTPS) - традиционно
 - UDP: 50100-50200 (LiveKit Media)
+
 Не обязательно:
 - TCP/UDP: 3478 (Matrix TURN)
 - TCP: 7881 (LiveKit Signal/TCP fallback)
