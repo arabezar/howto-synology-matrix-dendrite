@@ -39,14 +39,14 @@ sudo -i
 ### Автоматическое развёртывание
 Выполните команду загрузки и выполнения скрипта развёртывания (можно запускать в папке пользователя `root`):
 ```bash
-curl -sLO https://raw.githubusercontent.com/arabezar/howto-synology-matrix-dendrite/main/install.sh && chmod +x install.sh && ./install.sh
+curl -sLO https://raw.githubusercontent.com/arabezar/matrix-dendrite-synology/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 Отвечайте на вопросы, следите за исполнением скрипта. В какой-то момент скрипт попросит перейти в `Container Manager`. Создайте и запустите проект в `Container Manager` > `Проект` > `Создать` > `Название проекта` (например, `matrix-dendrite`) + `Путь` > `Задать` (например, `/docker/matrix-dendrite`) > `Использовать существующий файл docker-compose.yml для создания проекта` > `Далее`…, после чего возвращайтесь к скрипту и задайте имя пользователя-администратора. Если не хотите отдельного админа, а сами хотите им быть, замените имя `admin` на своё, и создаваемый пользователь, т.е. Вы, сразу станет админом.
 <details>
 <summary>приблизительный лог работы скрипта</summary>
 
 ```bash
-ash-4.4# curl -sLO https://raw.githubusercontent.com/arabezar/howto-synology-matrix-dendrite/main/install.sh && chmod +x install.sh && ./install.sh
+ash-4.4# curl -sLO https://raw.githubusercontent.com/arabezar/matrix-dendrite-synology/main/install.sh && chmod +x install.sh && ./install.sh
 Установка Matrix Dendrite + LiveKit in Docker v0.0.1...
 Проверка необходимых условий...
 Задайте папку проекта [matrix-dendrite] (Enter - подтвердить):
@@ -143,4 +143,4 @@ testmatrix -u admin -t <token> exemple.com
 
 ## Вклад
 
-- Предложения и замечания категорически приветствуются [здесь](https://github.com/arabezar/howto-synology-matrix-dendrite/discussions)
+- Предложения и замечания категорически приветствуются [здесь](https://github.com/arabezar/matrix-dendrite-synology/discussions)
